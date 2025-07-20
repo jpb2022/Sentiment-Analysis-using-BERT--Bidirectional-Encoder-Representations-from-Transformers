@@ -289,13 +289,14 @@ Probabilities: {'negative': 0.0048, 'neutral': 0.0071, 'positive': 0.9880}
 If you’d like to contribute, feel free to fork the repo and submit a pull request. Suggestions, issues, and improvements are welcome!
 
 ---
+
 ## 🙋‍♂️ Author
 
-**Jitendra Kumar Gupta**
-📧 [jitendraguptaaur@gmail.com](mailto:jitendraguptaaur@gmail.com)
-**LinkedIn:** [jitendra-gupta-iitk](https://www.linkedin.com/in/jitendra-kumar-30a78216a/)
-🎓 M.Tech – IIT Kanpur | B.Tech – NIT Surat
-🧠 Focused on ML, NLP, and Generative AI
-
+**Jitendra Kumar Gupta**  
+📧 [jitendraguptaaur@gmail.com](mailto:jitendraguptaaur@gmail.com)  
+🔗 [LinkedIn: jitendra-gupta-iitk](https://www.linkedin.com/in/jitendra-kumar-30a78216a/)  
+🎓 M.Tech – IIT Kanpur | B.Tech – NIT Surat  
+🧠 Focused on Machine Learning, NLP, and Generative AI
 
 ---
+
