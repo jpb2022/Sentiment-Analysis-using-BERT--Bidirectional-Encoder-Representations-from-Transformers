@@ -47,12 +47,58 @@ Other metadata columns are also available but are not directly used in training.
 .
 ├── reviews.csv                 # Input dataset (example format shown in notebook)
 ├── best_model.bin             # Saved best model (after training)
-├── SentimentAnalysisBERT.ipynb# Jupyter notebook/Colab script
+├── SentimentAnalysisBERT.ipynb # Jupyter notebook/Colab script
 ├── README.md                  # Project documentation
 ```
 
 ---
 
+---
+
+## 🚀 Features
+
+* Text preprocessing using `BERT tokenizer`
+* Sentiment label creation (0 = Negative, 1 = Neutral, 2 = Positive)
+* PyTorch `Dataset` and `DataLoader`
+* BERT-based sentiment classifier with dropout regularization
+* Training with `AdamW`, learning rate scheduler, gradient clipping
+* Evaluation on validation/test set
+* Inference on new user text input with confidence scores
+
+---
+## 🧠 Technologies Used
+
+* Python 3.x
+* PyTorch
+* Hugging Face Transformers
+* scikit-learn
+* pandas, numpy, seaborn, matplotlib
+* Google Colab for training
+
+---
+
+## 📦 Installation
+
+Clone the repo:
+
+```bash
+git clone https://github.com/your-username/sentiment-analysis-bert.git
+cd sentiment-analysis-bert
+```
+
+Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+Or install manually:
+
+```bash
+pip install transformers torch scikit-learn pandas matplotlib seaborn
+```
+
+---
 ## 🧾 Step-by-Step Guide
 
 ### ✅ Step 1: Install and Import Required Libraries
@@ -149,6 +195,16 @@ torch.save(model.state_dict(), 'best_model.bin')
 ```
 
 Store the best-performing model based on validation accuracy.
+---
+
+## 📈 Training Performance
+
+| Epoch | Train Accuracy | Validation Accuracy | Train Loss | Val Loss |
+| ----- | -------------- | ------------------- | ---------- | -------- |
+| 1     | 73.10%         | 75.90%              | 0.68       | 0.59     |
+| 2     | 80.24%         | 76.54%              | 0.50       | 0.61     |
+| 3     | 86.28%         | 75.66%              | 0.37       | 0.69     |
+| 4     | 90.12%         | 75.42%              | 0.27       | 0.82     |
 
 ---
 
@@ -233,11 +289,10 @@ Probabilities: {'negative': 0.0048, 'neutral': 0.0071, 'positive': 0.9880}
 If you’d like to contribute, feel free to fork the repo and submit a pull request. Suggestions, issues, and improvements are welcome!
 
 ---
-
 ## 📬 Contact
 
-**Author**: \[Your Name]
-📧 Email: [Jitendraguptaaur@gmail.com](Jitendraguptaaur@gmail.com)
-🔗 LinkedIn: [Jitendra Kumar IIT KANPUR](https://www.linkedin.com/in/jitendra-kumar-30a78216a/)
+**Author:** Jitendra Kumar Gupta
+**Email:** [jitendraguptaaur@gmail.com](mailto:jitendraguptaaur@gmail.com)
+**LinkedIn:** [jitendra-gupta-iitk](https://www.linkedin.com/in/jitendra-kumar-30a78216a/)
 
 ---
