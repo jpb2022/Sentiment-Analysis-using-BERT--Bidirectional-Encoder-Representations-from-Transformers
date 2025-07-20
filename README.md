@@ -2,193 +2,217 @@
 
 ---
 
-```markdown
-# 🧠 Sentiment Analysis using BERT (Bidirectional Encoder Representations from Transformers)
+# 📊 Sentiment Analysis Using BERT (Bidirectional Encoder Representations from Transformers)
 
-This project demonstrates how to perform **Sentiment Analysis** on Google Play Store reviews using the **BERT transformer model** (from Hugging Face). The model classifies reviews into **Positive**, **Neutral**, or **Negative** sentiments based on the review content.
-
----
-
-## 📌 Project Highlights
-
-- Preprocessing real-world app review data
-- Tokenization using BERT tokenizer
-- Fine-tuning `bert-base-cased` for multi-class sentiment classification
-- PyTorch-based model training and evaluation
-- Predicting sentiment on new, unseen text
+This project demonstrates how to build a **Sentiment Analysis** model using **BERT** from Hugging Face Transformers. The model is trained on **app reviews** data to classify sentiments as **Negative**, **Neutral**, or **Positive**.
 
 ---
 
-## 📁 Dataset
-
-The dataset used is a CSV file (`reviews.csv`) containing app reviews from the Google Play Store, with the following relevant columns:
-
-- `content`: The review text
-- `score`: Review score (1 to 5)
-
-Sentiment labels are created as:
-- **1-2** → Negative (Label 0)
-- **3**   → Neutral (Label 1)
-- **4-5** → Positive (Label 2)
-
----
-
-## 🧩 Project Structure
+## 📁 Project Structure
 
 ```
-
-📦 Sentiment-BERT
-├── reviews.csv              # Input dataset
-├── sentiment\_analysis.ipynb # Main training and prediction notebook
-├── best\_model.bin           # Saved best model weights
-├── README.md                # Project documentation
-
-````
+.
+├── reviews.csv                # Raw dataset
+├── sentiment_analysis_bert.ipynb  # Jupyter Notebook implementation
+├── best_model.bin            # Best performing model weights
+├── README.md                 # Project documentation
+```
 
 ---
 
-## ⚙️ Installation
+## 🚀 Features
 
-Make sure you have Python 3.7+ installed. Use the following commands to install the required packages.
+* Text preprocessing using `BERT tokenizer`
+* Sentiment label creation (0 = Negative, 1 = Neutral, 2 = Positive)
+* PyTorch `Dataset` and `DataLoader`
+* BERT-based sentiment classifier with dropout regularization
+* Training with `AdamW`, learning rate scheduler, gradient clipping
+* Evaluation on validation/test set
+* Inference on new user text input with confidence scores
+
+---
+
+## 🧠 Technologies Used
+
+* Python 3.x
+* PyTorch
+* Hugging Face Transformers
+* scikit-learn
+* pandas, numpy, seaborn, matplotlib
+* Google Colab for training
+
+---
+
+## 📦 Installation
+
+Clone the repo:
 
 ```bash
-pip install torch transformers scikit-learn seaborn matplotlib pandas
-````
+git clone https://github.com/your-username/sentiment-analysis-bert.git
+cd sentiment-analysis-bert
+```
+
+Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+Or install manually:
+
+```bash
+pip install transformers torch scikit-learn pandas matplotlib seaborn
+```
 
 ---
 
-## 🧠 Model Architecture
+## 📘 Step-by-Step Guide
 
-* **Base Model**: `bert-base-cased`
-* **Final Layers**: Dropout (0.3) → Linear Layer (3 output classes)
-* **Loss Function**: CrossEntropyLoss
-* **Optimizer**: AdamW with learning rate 2e-5
-* **Learning Scheduler**: Linear warmup
+### ✅ Step 1: Import Libraries
+
+Import required libraries and set the random seed for reproducibility. Use GPU if available.
 
 ---
 
-## 🚀 Step-by-Step Workflow
+### 📂 Step 2: Load Dataset
 
-### ✅ Step 1: Import Libraries & Set Configs
+Upload or load `reviews.csv` dataset which contains user reviews from an app store.
 
-Set up necessary imports, configurations, and randomness seeds for reproducibility.
+Essential columns:
 
-### 📥 Step 2: Load Dataset
+* `content`: Review text
+* `score`: Rating (1 to 5)
 
-Upload and load the `reviews.csv` file, then explore the data.
+---
 
 ### 🧹 Step 3: Preprocess Data
 
-Clean and label the data based on the score column to form sentiment categories.
+* Drop missing values
+* Map ratings to sentiment labels:
 
-### 🔡 Step 4: Tokenization
-
-Use `BertTokenizer` to tokenize text. Token length distribution is visualized to decide `MAX_LEN`.
-
-### 📦 Step 5: Create Dataset & DataLoaders
-
-Define a custom PyTorch `Dataset` and create train, validation, and test `DataLoaders`.
-
-### 🧱 Step 6: Build Model
-
-Define a custom `SentimentClassifier` using pretrained `BertModel`.
-
-### 🔧 Step 7: Optimizer, Scheduler, and Loss
-
-Set up the optimizer (`AdamW`), learning rate scheduler, and cross-entropy loss.
-
-### 🔁 Step 8: Training and Evaluation
-
-Implement functions for training and evaluating the model, with model saving on best validation accuracy.
-
-### 🎯 Step 9: Train the Model
-
-Train for 4 epochs and log accuracy and loss on training and validation sets.
-
-### 📊 Step 10: Evaluate on Test Set
-
-Load the best model and evaluate its performance on the test data.
-
-### 💬 Step 11: Predict on New Text
-
-Define a function to predict sentiment from any new sentence input.
+  * 1–2 → Negative (0)
+  * 3 → Neutral (1)
+  * 4–5 → Positive (2)
+* Visualize class distribution using seaborn
 
 ---
 
-## 📈 Training Performance
+### 🧾 Step 4: Tokenization
 
-| Epoch | Train Accuracy | Validation Accuracy | Train Loss | Val Loss |
-| ----- | -------------- | ------------------- | ---------- | -------- |
-| 1     | 73.10%         | 75.90%              | 0.68       | 0.59     |
-| 2     | 80.24%         | 76.54%              | 0.50       | 0.61     |
-| 3     | 86.28%         | 75.66%              | 0.37       | 0.69     |
-| 4     | 90.12%         | 75.42%              | 0.27       | 0.82     |
+Use Hugging Face `bert-base-cased` tokenizer:
+
+* Encode each review
+* Visualize token length distribution
+* Set `MAX_LEN = 160` for consistency
 
 ---
 
-## 📌 Sample Predictions
+### 📦 Step 5: Dataset & DataLoader
+
+* Define a custom `ReviewDataset` class
+* Create DataLoaders for train, validation, and test using `torch.utils.data.DataLoader`
+
+---
+
+### 🏗️ Step 6: Build the BERT Classifier
+
+Define a `SentimentClassifier` model:
+
+* BERT base encoder
+* Dropout
+* Fully connected layer for classification
+
+---
+
+### ⚙️ Step 7: Optimizer, Scheduler, and Loss
+
+* Optimizer: `AdamW`
+* Scheduler: `get_linear_schedule_with_warmup`
+* Loss: `CrossEntropyLoss`
+
+---
+
+### 🔁 Step 8: Training & Evaluation Functions
+
+Define `train_epoch()` and `eval_model()` functions:
+
+* Handles forward pass, backward pass, optimizer step
+* Uses gradient clipping and learning rate scheduling
+
+---
+
+### 📊 Step 9: Train the Model
+
+Train the model for 4 epochs:
+
+* Save the best model (with highest validation accuracy) as `best_model.bin`
+
+---
+
+### 🧪 Step 10: Evaluate the Model
+
+Evaluate model performance on the **test set** using:
+
+* Accuracy
+* Loss
+* Confusion matrix / classification report (can be added optionally)
+
+---
+
+### 🔮 Step 11: Predict Sentiment on New Text
+
+Predict sentiment on unseen user input using:
 
 ```python
-"This product is absolutely terrible! I hate it!"
-→ Predicted: Negative (Confidence: 0.99)
+predict_sentiment("Your input text", model, tokenizer)
+```
 
-"The item was okay, nothing special."
-→ Predicted: Negative (Confidence: 0.93)
+Returns:
 
-"I love this product! It's amazing and works perfectly!"
-→ Predicted: Positive (Confidence: 0.99)
+* Sentiment label
+* Confidence score
+* Class-wise probabilities
+
+---
+
+## 📈 Sample Output
+
+```text
+Text: I love this product! It's amazing and works perfectly!
+Predicted: Positive (Confidence: 0.99)
+Probabilities: {'Negative': 0.0048, 'Neutral': 0.0071, 'Positive': 0.9880}
 ```
 
 ---
 
-## 🧪 Model Evaluation
+## 📌 Notes
 
-```python
-Test Accuracy: 74.72%
-```
-
----
-
-## 🛠️ Tools & Libraries
-
-* [Transformers (Hugging Face)](https://huggingface.co/transformers/)
-* [PyTorch](https://pytorch.org/)
-* [scikit-learn](https://scikit-learn.org/)
-* [seaborn](https://seaborn.pydata.org/)
-* [matplotlib](https://matplotlib.org/)
-* [pandas](https://pandas.pydata.org/)
+* You can increase the number of epochs or experiment with other BERT variants like `bert-base-uncased`, `distilbert-base-uncased` for speed.
+* Fine-tuning on more balanced and larger datasets improves model performance.
 
 ---
 
-## 📎 Future Improvements
+## 📚 References
 
-* Handle class imbalance via class weights or oversampling
-* Use more advanced models like `RoBERTa`, `DistilBERT`
-* Add hyperparameter tuning
-* Integrate Flask for a web-based prediction interface
-
----
-
-## 🤝 Contribution
-
-Feel free to fork the repo, raise issues or submit pull requests. Contributions are welcome!
+* [BERT Paper (Devlin et al.)](https://arxiv.org/abs/1810.04805)
+* [Hugging Face Transformers](https://huggingface.co/transformers/)
+* [PyTorch Documentation](https://pytorch.org/docs/stable/index.html)
 
 ---
 
-## 📜 License
+## 🙌 Acknowledgments
 
-This project is open-source and available under the [MIT License](LICENSE).
-
----
-
-## 🙋‍♂️ Author
-
-**Jitendra Kumar Gupta**
-🔗 [LinkedIn](https://www.linkedin.com/in/jitendraguptaiitk/) | 
-✉️ [jitendraguptaaur@gmail.com](mailto:jitendraguptaaur@gmail.com)
+Thanks to the open-source community for enabling powerful NLP tools. Built with ❤️ using Hugging Face and PyTorch.
 
 ---
 
-```
+## 📬 Contact
 
-```
+**Author:** Jitendra Kumar Gupta
+**Email:** [jitendraguptaaur@gmail.com](mailto:jitendraguptaaur@gmail.com)
+**LinkedIn:** [jitendra-gupta-iitk](https://www.linkedin.com/in/jitendra-kumar-30a78216a/)
+
+---
+
+
+
