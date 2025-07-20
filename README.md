@@ -182,7 +182,8 @@ This project is open-source and available under the [MIT License](LICENSE).
 ## 🙋‍♂️ Author
 
 **Jitendra Kumar Gupta**
-🔗 [LinkedIn](https://www.linkedin.com/in/jitendraguptaiitk/) | ✉️ [jitendraguptaaur@gmail.com](mailto:jitendraguptaaur@gmail.com)
+🔗 [LinkedIn](https://www.linkedin.com/in/jitendraguptaiitk/) | 
+✉️ [jitendraguptaaur@gmail.com](mailto:jitendraguptaaur@gmail.com)
 
 ---
 
